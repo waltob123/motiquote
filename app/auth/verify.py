@@ -35,7 +35,7 @@ def request_token(email_address: str):
         return render_template('auth/verification.html')
     token = create_token(user)
     send_verification_email(user.email_address, sender=os.environ.get('MAIL_USERNAME'),
-                            verification_link=f"{os.environ.get('APPLICATION_DOMAIN')}/verify?token={token}")
+                            verification_link=f"{url_for('verify.verify_email')}/verify?token={token}")
     flash(message='Verification email sent!', category='success')
     return redirect(url_for('auth.login'))
 
