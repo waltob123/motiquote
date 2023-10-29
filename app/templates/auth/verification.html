@@ -1,0 +1,16 @@
+{% extends './base' %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div>
+                        {{ message }}
+                        <a href="{{ url_for('verify.') }}">Request new token</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}

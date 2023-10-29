@@ -1,0 +1,20 @@
+{% extends "./admin-base.html" %}
+
+{% block title %}Admin Register{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('auth.register') }}" method="post">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email_address" id="email" required>
+    </div>
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="passwd" id="password" required>
+    </div>
+    <input type="submit" value="Register">
+</form>
+{% endblock %}
