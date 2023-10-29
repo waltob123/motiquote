@@ -24,6 +24,9 @@ mail = Mail(app)
 
 from .main.route import main
 from .auth.route import auth
+from .auth.verify import verify
 
 app.register_blueprint(main)
 app.register_blueprint(auth)
+app.register_blueprint(verify)
+

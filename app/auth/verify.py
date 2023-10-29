@@ -35,7 +35,7 @@ def request_token(email_address: str):
         return render_template('auth/verification.html')
     token = create_token(user)
     send_verification_email(user.email_address, sender=os.environ.get('MAIL_USERNAME'),
-                            verification_link=f"{url_for('verify.verify_email')}/verify?token={token}")
+                            verification_link=f"{url_for('verify.verify_email')}?token={token}")
     flash(message='Verification email sent!', category='success')
     return redirect(url_for('auth.login'))
 
@@ -59,23 +59,23 @@ def verify_email():
     if not token:
         flash(message='No token provided!', category='error')
         s.close()
-        return render_template('auth/verification.html', token=token)
+        return render_template('auth/verification.html', token=token, domain=os.environ.get('DOMAIN'))
     try:
         payload = jwt.decode(token, os.environ.get('SECRET_KEY'), algorithms=['HS256'])
     except jwt.ExpiredSignatureError:
         flash(message='Token has expired!', category='error')
         s.close()
-        return render_template('auth/verification.html', token=token)
+        return render_template('auth/verification.html', token=token, domain=os.environ.get('DOMAIN'))
     except jwt.InvalidTokenError:
         flash(message='Token is invalid!', category='error')
         s.close()
-        return render_template('auth/verification.html', token=token)
+        return render_template('auth/verification.html', token=token, domain=os.environ.get('DOMAIN'))
 
     user = session.query(User).filter_by(email_address=payload.get('email_address')).first()
     if not user:
         flash(message='Account does not exists!', category='error')
         s.close()
-        return render_template('auth/verification.html', token=token)
+        return render_template('auth/verification.html', token=token, domain=os.environ.get('DOMAIN'))
     user.is_verified = True
     s.commit()
     s.close()
