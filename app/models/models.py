@@ -1,5 +1,5 @@
 import re
-from sqlalchemy import Column, ForeignKey, String
+from sqlalchemy import Boolean, Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 from .base_model import BaseModel, Base
@@ -12,15 +12,15 @@ class Role(Base, BaseModel):
     role = Column(String(255), nullable=False, unique=True)
     users = relationship('User', backref='role', lazy=True)
 
-    def __init__(self, role):
+    def __init__(self, role: str) -> None:
         '''Initialize role.'''
         self.role = role
 
-    def __str__(self):
+    def __str__(self) -> str:
         '''String representation of role.'''
         return f'<Role {self.id} {self.role}>'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         '''String representation of role.'''
         return f'Role("{self.role}")'
 
@@ -34,8 +34,10 @@ class User(Base, BaseModel):
     passwd = Column(String(255), nullable=False)
     role_id = Column(String(255), ForeignKey('roles.id'), nullable=False)
     profile = relationship('Profile', backref='user', lazy=True)
+    is_verified = Column(Boolean, nullable=False, default=False)
 
-    def __init__(self, email_address, username, passwd, role_id):
+    def __init__(self, email_address: str, username: str,
+                 passwd: str, role_id: str) -> None:
         '''Initialize user.'''
         self.email_address = email_address
         self.username = username
@@ -43,12 +45,12 @@ class User(Base, BaseModel):
         self.role_id = role_id
 
     @hybrid_property
-    def email(self):
+    def email(self) -> str:
         '''Getter for email.'''
         return self._email
 
     @email.setter
-    def email(self, email):
+    def email(self, email: str) -> None:
         '''Setter for email.'''
         if len(email) < 1:
             raise Exception('Email cannot be empty.')
@@ -61,24 +63,24 @@ class User(Base, BaseModel):
         self._email = result.string
 
     @hybrid_property
-    def password(self):
+    def passwd(self) -> str:
         '''Getter for password.'''
-        return self._password
+        return self._passwd
 
-    @password.setter
-    def password(self, password):
+    @passwd.setter
+    def passwd(self, passwd: str) -> None:
         '''Setter for password.'''
-        if len(password) < 8:
-            raise Exception('Password must be at least 8 characters long.')
-        self._password = password
+        if len(passwd) < 8:
+            raise Exception('Password must be 8 or more characters.')
+        self._passwd = passwd
 
-    def __str__(self):
+    def __str__(self) -> str:
         '''String representation of user.'''
         return f'<User {self.id} {self.username}>'
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         '''String representation of user.'''
-        return f'User("{self.username}")'
+        return f'User("{self.email_address}", "{self.username}", "{self.passwd}", "{self.role_id}")'
 
 
 class Profile(Base, BaseModel):
