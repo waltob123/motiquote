@@ -24,9 +24,9 @@ def create_token(user):
     return token
 
 
-def verify_token(token):
+def verify_token(token=None):
     '''Verify token.'''
-    if not token:
+    if token is None:
         return 'No token provided!'
     try:
         payload = jwt.decode(token, os.environ.get('SECRET_KEY'), algorithms=['HS256'])
