@@ -29,7 +29,7 @@ class ValidateCredentials:
 
     def validate_password(self) -> bool:
         '''Checks if password is valid.'''
-        if len(self.data['passwd']) < 8:
+        if len(self.data['password']) < 8:
             return False
         if not any(char.isdigit() for char in self.data['passwd']):
             return False

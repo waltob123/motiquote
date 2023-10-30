@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_mail import Mail
+from flask_login import LoginManager
 from dotenv import load_dotenv
 from app.database.db import init_db
 from app.models.models import Base
@@ -10,6 +11,10 @@ load_dotenv()
 init_db(Base)
 
 app = Flask(__name__)
+
+login_manager = LoginManager()
+
+login_manager.init_app(app)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')

@@ -45,7 +45,7 @@ def create_user():
         return redirect(url_for('auth.register'))
 
     s = session()
-    request_data['passwd'] = hash_password(request_data['passwd'])  # set password to hashed password
+    request_data['password'] = hash_password(request_data['password'])  # set password to hashed password
     
     try:
         role = s.query(Role).filter_by(role='user').first()
@@ -79,39 +79,3 @@ def login():
 def authenticate_user():
     '''Authenticate user.'''
     return 'User authenticated'
-
-
-# Authentication for admin users
-@auth.route('/admin/register', methods=['GET'], strict_slashes=True)
-def admin_register():
-    '''Admin register page.'''
-    return render_template('auth/admin_register.html')
-
-
-@auth.route('/admin/register', methods=['POST'], strict_slashes=True)
-def create_admin_user():
-    '''Create admin user.'''
-    request_data = request.form.to_dict()
-    validation = ValidateCredentials(request_data)
-    if not validation.validate_email():
-        flash(validation.errors.get('email'))
-        return redirect(url_for('auth.admin_register'))
-    if not validation.validate_password():
-        flash(validation.errors.get('password'))
-        return redirect(url_for('auth.admin_register'))
-    if not validation.validate_username():
-        flash(validation.errors.get('username'))
-        return redirect(url_for('auth.admin_register'))
-
-    return 'Admin user created'
-
-@auth.route('/admin/login', methods=['GET'], strict_slashes=True)
-def admin_login():
-    '''Admin login page.'''
-    return render_template('auth/admin_login.html')
-
-
-@auth.route('/admin/login', methods=['POST'], strict_slashes=True)
-def authenticate_admin_user():
-    '''Authenticate admin user.'''
-    return 'Admin user authenticated'

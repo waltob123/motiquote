@@ -1,4 +1,5 @@
 import re
+from flask_login import UserMixin
 from sqlalchemy import Boolean, Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -25,16 +26,19 @@ class Role(Base, BaseModel):
         return f'Role("{self.role}")'
 
 
-class User(Base, BaseModel):
+class User(Base, UserMixin, BaseModel):
     '''Model for users.'''
     __tablename__ = 'users'
 
     email_address = Column(String(255), nullable=False, unique=True)
     username = Column(String(255), nullable=False, unique=True)
-    passwd = Column(String(255), nullable=False)
+    password = Column(String(255), nullable=False)
     role_id = Column(String(255), ForeignKey('roles.id'), nullable=False)
     profile = relationship('Profile', backref='user', lazy=True)
     is_verified = Column(Boolean, nullable=False, default=False)
+    is_active = Column(Boolean, nullable=False, default=False)
+    is_authenticated = Column(Boolean, nullable=False, default=False)
+    is_anonymous = Column(Boolean, nullable=False, default=False)
 
     def __init__(self, email_address: str, username: str,
                  passwd: str, role_id: str) -> None:
@@ -73,6 +77,10 @@ class User(Base, BaseModel):
         if len(passwd) < 8:
             raise Exception('Password must be 8 or more characters.')
         self._passwd = passwd
+
+    def get_id(self) -> str:
+        '''Get user id.'''
+        return self.id
 
     def __str__(self) -> str:
         '''String representation of user.'''
