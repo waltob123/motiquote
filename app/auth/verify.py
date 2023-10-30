@@ -71,7 +71,7 @@ def verify_email():
         s.close()
         return render_template('auth/verification.html', token=token, domain=os.environ.get('DOMAIN'))
 
-    user = session.query(User).filter_by(email_address=payload.get('email_address')).first()
+    user = s.query(User).filter_by(email_address=payload.get('email_address')).first()
     if not user:
         flash(message='Account does not exists!', category='error')
         s.close()
