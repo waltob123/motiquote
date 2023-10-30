@@ -51,7 +51,7 @@ def send_verification_email(email: str, sender: str, verification_link):
     mail.send(message)
 
 
-@verify.route('/', methods=['GET'])
+@verify.route('', methods=['GET'])
 def verify_email():
     '''Verify email address.'''
     token = request.args.get('token')
