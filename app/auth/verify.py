@@ -24,7 +24,7 @@ def create_token(user):
     return token
 
 
-@verify.route('/request', methods=['POST'])
+@verify.route('/request', methods=['GET'])
 def request_token(email_address: str):
     '''Request token.'''
     token = request.args.get('token')
