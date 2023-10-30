@@ -63,7 +63,7 @@ def create_user():
         return redirect(url_for('auth.register'))
     token = create_token(user)
     send_verification_email(user.email_address, sender=os.environ.get('MAIL_USERNAME'),
-                            verification_link=f"http://{os.environ.get('DOMAIN')}{url_for('verify.verify_email')}?token={token}")
+                            verification_link=f"{os.environ.get('DOMAIN')}{url_for('verify.verify_email')}?token={token}")
     flash('Account created successfully. Please check your email for verification link.')
     return redirect(url_for('auth.login'))
 
