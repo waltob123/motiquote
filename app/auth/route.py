@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import (abort, Blueprint, render_template, request,
                    redirect, url_for, flash)
+from app import app
 from sqlalchemy.exc import IntegrityError
 from .utils import hash_password, ValidateCredentials
 from .verify import create_token, send_verification_email
@@ -62,8 +63,8 @@ def create_user():
         flash('User already exists')
         return redirect(url_for('auth.register'))
     token = create_token(user)
-    send_verification_email(user.email_address, sender=os.environ.get('MAIL_USERNAME'),
-                            verification_link=f"{os.environ.get('DOMAIN')}{url_for('verify.verify_email')}?token={token}")
+    send_verification_email(user.email_address, sender=app.config['MAIL_USERNAME'],
+                            verification_link=f"{app.config['DOMAIN']}{url_for('verify.verify_email')}?token={token}")
     flash('Account created successfully. Please check your email for verification link.')
     return redirect(url_for('auth.login'))
 

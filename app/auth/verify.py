@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from flask import flash, Blueprint, request, render_template, redirect, url_for
 from dotenv import load_dotenv
 from flask_mail import Message
-from app import mail
+from app import app, mail
 from ..models.models import User
 from ..database.db import session
 
@@ -35,7 +35,7 @@ def request_token(email_address: str):
         return render_template('auth/verification.html')
     token = create_token(user)
     send_verification_email(user.email_address, sender=os.environ.get('MAIL_USERNAME'),
-                            verification_link=f"{os.environ.get('DOMAIN')}{url_for('verify.verify_email')}?token={token}")
+                            verification_link=f"{app.config['DOMAIN']}{url_for('verify.verify_email')}?token={token}")
     flash(message='Verification email sent!', category='success')
     return redirect(url_for('auth.login'))
 
@@ -51,7 +51,7 @@ def send_verification_email(email: str, sender: str, verification_link):
     mail.send(message)
 
 
-@verify.route('/account', methods=['GET'])
+@verify.route('/', methods=['GET'])
 def verify_email():
     '''Verify email address.'''
     token = request.args.get('token')
