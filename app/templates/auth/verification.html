@@ -7,7 +7,9 @@
                 {% if category == 'error' %}
                     <div>
                         {{ message }}
-                        <a href="{{ domain }}{{ url_for('verify.request_token') }}?token={{ token }}">Request new token</a>
+                        {% if domain %}
+                            <a href="{{ domain }}{{ url_for('verify.request_token') }}?token={{ token }}">Request new token</a>
+                        {% endif %}                       
                     </div>
                 {% endif %}
             {% endfor %}
