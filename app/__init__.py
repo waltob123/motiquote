@@ -15,6 +15,9 @@ app = Flask(__name__)
 login_manager = LoginManager()
 
 login_manager.init_app(app)
+login_manager.login_view = 'auth.login'
+login_manager.login_message_category = 'info'
+login_manager.login_message = 'You are not authorized to view this page. Please log in.'
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')

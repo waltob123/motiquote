@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import (abort, Blueprint, render_template, request,
                    redirect, url_for, flash)
+from flask_login import login_required, login_user, logout_user
 from app import app, login_manager
 from sqlalchemy.exc import IntegrityError
 from .utils import hash_password, ValidateCredentials
