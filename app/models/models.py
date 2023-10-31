@@ -36,9 +36,6 @@ class User(Base, UserMixin, BaseModel):
     role_id = Column(String(255), ForeignKey('roles.id'), nullable=False)
     profile = relationship('Profile', backref='user', lazy=True)
     is_verified = Column(Boolean, nullable=False, default=False)
-    is_active = Column(Boolean, nullable=False, default=False)
-    is_authenticated = Column(Boolean, nullable=False, default=False)
-    is_anonymous = Column(Boolean, nullable=False, default=False)
 
     def __init__(self, email_address: str, username: str,
                  password: str, role_id: str) -> None:
@@ -47,36 +44,6 @@ class User(Base, UserMixin, BaseModel):
         self.username = username
         self.password = password
         self.role_id = role_id
-
-    @hybrid_property
-    def email(self) -> str:
-        '''Getter for email.'''
-        return self._email
-
-    @email.setter
-    def email(self, email: str) -> None:
-        '''Setter for email.'''
-        if len(email) < 1:
-            raise Exception('Email cannot be empty.')
-        pattern = r'^[a-zA-Z][a-zA-Z0-9.-_]*@[a-zA-Z0-9]+.[a-zA-Z]+'
-        result = re.search(pattern, email)
-
-        # check if result is None
-        if result is None:
-            raise Exception('Invalid email address.')
-        self._email = result.string
-
-    @hybrid_property
-    def password(self) -> str:
-        '''Getter for password.'''
-        return self._password
-
-    @password.setter
-    def password(self, password: str) -> None:
-        '''Setter for password.'''
-        if len(password) < 8:
-            raise Exception('Password must be 8 or more characters.')
-        self._password = password
 
     def get_id(self) -> str:
         '''Get user id.'''
