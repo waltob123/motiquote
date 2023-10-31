@@ -1,5 +1,5 @@
-from app.database.db import session
-from app.models.models import Role
+from database.db import session
+from models.models import Role
 
 
 s = session()
