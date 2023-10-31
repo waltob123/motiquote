@@ -7,6 +7,7 @@ from app import app, login_manager
 from sqlalchemy.exc import IntegrityError
 from .utils import check_password, hash_password, ValidateCredentials
 from .verify import create_token, send_verification_email
+from .forms import LoginForm, RegisterForm
 from app.models.models import User, Role
 from app.database.db import session
 
@@ -37,24 +38,39 @@ def register():
     # redirect if user is already logged in
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    return render_template('auth/register.html')
+
+    # create form
+    form = RegisterForm()
+    return render_template('auth/register.html', form=form)
 
 
 @auth.route('/register', methods=['POST'], strict_slashes=True)
 def create_user():
     '''Create user.'''
     request_data = request.form.to_dict()  # get form data
+    form_data = RegisterForm(**request_data)  # get form data
     
     # validate data
-    validation = ValidateCredentials(request_data)
-    if not validation.validate_email():
-        flash(validation.errors.get('email'))
-        return redirect(url_for('auth.register'))
-    if not validation.validate_password():
-        flash(validation.errors.get('password'))
-        return redirect(url_for('auth.register'))
-    if not validation.validate_username():
-        flash(validation.errors.get('username'))
+    # validation = ValidateCredentials(request_data)
+    # if not validation.validate_email():
+    #     flash(validation.errors.get('email'))
+    #     return redirect(url_for('auth.register'))
+    # if not validation.validate_password():
+    #     flash(validation.errors.get('password'))
+    #     return redirect(url_for('auth.register'))
+    # if not validation.validate_username():
+    #     flash(validation.errors.get('username'))
+    #     return redirect(url_for('auth.register'))
+
+    if not form_data.validate_on_submit():
+        if form_data.errors.get('email_address'):
+            flash(form_data.errors.get('email_address')[0])
+        if form_data.errors.get('username'):
+            flash(form_data.errors.get('username')[0])
+        if form_data.errors.get('password'):
+            flash(form_data.errors.get('password')[0])
+        if form_data.errors.get('confirm_password'):
+            flash(form_data.errors.get('confirm_password')[0])
         return redirect(url_for('auth.register'))
 
     s = session()  # create session
@@ -67,7 +83,8 @@ def create_user():
         s.close()
         abort(500)
 
-    user = User(**request_data)
+    user = User(email_address=form_data['email_address'], username=form_data['username'],
+                password=form_data['password'], role_id=form_data['role_id'])
     s.add(user)
     try:
         s.commit()
@@ -88,14 +105,16 @@ def login():
     # redirect if user is already logged in
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    return render_template('auth/login.html')
+
+    # create form
+    form = LoginForm()
+    return render_template('auth/login.html', form=form)
 
 
 @auth.route('/login', methods=['POST'], strict_slashes=True)
 def authenticate_user():
     '''Authenticate user.'''
     request_data = request.form.to_dict()  # get form data
-    print(request_data['password'])
     s = session()  # create session
 
     user = s.query(User).filter_by(email_address=request_data['email_address']).first()  # get user
