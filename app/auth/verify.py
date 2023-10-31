@@ -65,6 +65,12 @@ def request_token():
         s.close()
         flash(message='User not found! Check if verification is correct.', category='error')
         return render_template('auth/verification.html', domain=False)
+
+    if user.is_verified:
+        s.close()
+        flash(message='Account already verified!', category='success')
+        return redirect(url_for('auth.login'))
+
     new_token = create_token(user)
     send_verification_email(user.email_address, sender=os.environ.get('MAIL_USERNAME'),
                             verification_link=f"{app.config['DOMAIN']}{url_for('verify.verify_email')}?token={new_token}")
