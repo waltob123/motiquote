@@ -4,14 +4,9 @@
 
 {% block content %}
 <form action="{{ url_for('auth.login') }}" method="post">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email_address" id="email" required>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-    </div>
-    <input type="submit" value="Login">
+    {{ form.csrf_token }}
+    {{ form.email_address.label }} {{ form.email_address() }}
+    {{ form.password.label }} {{ form.password() }}
+    {{ form.submit() }}
 </form>
 {% endblock %}

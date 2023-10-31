@@ -7,6 +7,7 @@ from app import app, login_manager
 from sqlalchemy.exc import IntegrityError
 from .utils import check_password, hash_password, ValidateCredentials
 from .verify import create_token, send_verification_email
+from .forms import LoginForm, RegisterForm
 from app.models.models import User, Role
 from app.database.db import session
 
@@ -37,7 +38,10 @@ def register():
     # redirect if user is already logged in
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    return render_template('auth/register.html')
+
+    # create form
+    form = RegisterForm()
+    return render_template('auth/register.html', form=form)
 
 
 @auth.route('/register', methods=['POST'], strict_slashes=True)
@@ -88,7 +92,10 @@ def login():
     # redirect if user is already logged in
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    return render_template('auth/login.html')
+
+    # create form
+    form = LoginForm()
+    return render_template('auth/login.html', form=form)
 
 
 @auth.route('/login', methods=['POST'], strict_slashes=True)
