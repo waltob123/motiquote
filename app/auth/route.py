@@ -95,7 +95,6 @@ def login():
 def authenticate_user():
     '''Authenticate user.'''
     request_data = request.form.to_dict()  # get form data
-    print(request_data['password'])
     s = session()  # create session
 
     user = s.query(User).filter_by(email_address=request_data['email_address']).first()  # get user
