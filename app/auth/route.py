@@ -48,17 +48,29 @@ def register():
 def create_user():
     '''Create user.'''
     request_data = request.form.to_dict()  # get form data
+    form_data = RegisterForm(**request_data)  # get form data
     
     # validate data
-    validation = ValidateCredentials(request_data)
-    if not validation.validate_email():
-        flash(validation.errors.get('email'))
-        return redirect(url_for('auth.register'))
-    if not validation.validate_password():
-        flash(validation.errors.get('password'))
-        return redirect(url_for('auth.register'))
-    if not validation.validate_username():
-        flash(validation.errors.get('username'))
+    # validation = ValidateCredentials(request_data)
+    # if not validation.validate_email():
+    #     flash(validation.errors.get('email'))
+    #     return redirect(url_for('auth.register'))
+    # if not validation.validate_password():
+    #     flash(validation.errors.get('password'))
+    #     return redirect(url_for('auth.register'))
+    # if not validation.validate_username():
+    #     flash(validation.errors.get('username'))
+    #     return redirect(url_for('auth.register'))
+
+    if not form_data.validate_on_submit():
+        if form_data.errors.get('email_address'):
+            flash(form_data.errors.get('email_address')[0])
+        if form_data.errors.get('username'):
+            flash(form_data.errors.get('username')[0])
+        if form_data.errors.get('password'):
+            flash(form_data.errors.get('password')[0])
+        if form_data.errors.get('confirm_password'):
+            flash(form_data.errors.get('confirm_password')[0])
         return redirect(url_for('auth.register'))
 
     s = session()  # create session
@@ -71,7 +83,8 @@ def create_user():
         s.close()
         abort(500)
 
-    user = User(**request_data)
+    user = User(email_address=form_data['email_address'], username=form_data['username'],
+                password=form_data['password'], role_id=form_data['role_id'])
     s.add(user)
     try:
         s.commit()
