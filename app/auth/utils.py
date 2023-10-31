@@ -31,11 +31,11 @@ class ValidateCredentials:
         '''Checks if password is valid.'''
         if len(self.data['password']) < 8:
             return False
-        if not any(char.isdigit() for char in self.data['passwd']):
+        if not any(char.isdigit() for char in self.data['password']):
             return False
-        if not any(char.isalpha() for char in self.data['passwd']):
+        if not any(char.isalpha() for char in self.data['password']):
             return False
-        if not any(char.isupper() for char in self.data['passwd']):
+        if not any(char.isupper() for char in self.data['password']):
             return False
         return True
 

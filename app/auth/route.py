@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import (abort, Blueprint, render_template, request,
                    redirect, url_for, flash)
-from app import app
+from app import app, login_manager
 from sqlalchemy.exc import IntegrityError
 from .utils import hash_password, ValidateCredentials
 from .verify import create_token, send_verification_email
@@ -18,6 +18,15 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def page_not_found(e):
     '''404 page.'''
     return render_template('errors/404.html'), 404
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    '''Load user.'''
+    s = session()
+    user = s.query(User).filter_by(id=user_id).first()
+    s.close()
+    return user
 
 
 # Authentication for normal users

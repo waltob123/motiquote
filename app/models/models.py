@@ -41,11 +41,11 @@ class User(Base, UserMixin, BaseModel):
     is_anonymous = Column(Boolean, nullable=False, default=False)
 
     def __init__(self, email_address: str, username: str,
-                 passwd: str, role_id: str) -> None:
+                 password: str, role_id: str) -> None:
         '''Initialize user.'''
         self.email_address = email_address
         self.username = username
-        self.passwd = passwd
+        self.password = password
         self.role_id = role_id
 
     @hybrid_property
@@ -67,16 +67,16 @@ class User(Base, UserMixin, BaseModel):
         self._email = result.string
 
     @hybrid_property
-    def passwd(self) -> str:
+    def password(self) -> str:
         '''Getter for password.'''
-        return self._passwd
+        return self._password
 
-    @passwd.setter
-    def passwd(self, passwd: str) -> None:
+    @password.setter
+    def password(self, password: str) -> None:
         '''Setter for password.'''
-        if len(passwd) < 8:
+        if len(password) < 8:
             raise Exception('Password must be 8 or more characters.')
-        self._passwd = passwd
+        self._password = password
 
     def get_id(self) -> str:
         '''Get user id.'''
@@ -88,7 +88,7 @@ class User(Base, UserMixin, BaseModel):
 
     def __repr__(self) -> str:
         '''String representation of user.'''
-        return f'User("{self.email_address}", "{self.username}", "{self.passwd}", "{self.role_id}")'
+        return f'User("{self.email_address}", "{self.username}", "{self.password}", "{self.role_id}")'
 
 
 class Profile(Base, BaseModel):
