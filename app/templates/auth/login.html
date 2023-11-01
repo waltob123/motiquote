@@ -1,12 +1,36 @@
 {% extends './base.html' %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/auth.css') }}">
+{% endblock %}
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<form action="{{ url_for('auth.login') }}" method="post">
-    {{ form.csrf_token }}
-    {{ form.email_address.label }} {{ form.email_address() }}
-    {{ form.password.label }} {{ form.password() }}
-    {{ form.submit() }}
-</form>
+    <section id="login">
+        <div class="container">
+            <div class="flex">
+                <div class="flex-item">
+                    <div>
+                        <h3>Login</h3>
+                        <p>Are you new here? <a href="{{ url_for('auth.register') }}">Register</a></p>
+                    </div>
+                </div>
+                <div class="auth-form flex-item">
+                    <form action="{{ url_for('auth.login') }}" method="post">
+                        {{ form.csrf_token }}
+                        <div class="form-field">
+                            {{ form.email_address.label }}
+                            {{ form.email_address(class_='form-input', placeholder='abc@gmail.com') }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.password.label }}
+                            {{ form.password(class_='form-input', placeholder='Enter your password') }}
+                        </div>
+                        {{ form.submit(class_='btn btn-primary') }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

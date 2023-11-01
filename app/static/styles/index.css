@@ -1,0 +1,119 @@
+/* Shared styles */
+
+section#hero, section#about-us, section#contact {
+    margin-bottom: 8rem;
+    padding: 4rem 0;
+}
+
+/* Hero styles */
+
+section#hero {
+    width: 100%;
+    height: 75vh;
+    background-color: rgba(0, 0, 0, 0.685);
+    background-image: url(../images/hero-background.jpg);
+    background-size: cover;
+    background-blend-mode: darken;
+}
+
+section#hero .container {
+    height: 100%;
+    padding: 4rem 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-text h2, .hero-text p, .hero-text a {
+    color: var(--white-faded);
+    margin-bottom: 1rem;
+}
+
+.hero-text h2 {
+    font-size: 3rem;
+}
+
+.hero-text .btn {
+    display: inline-block;
+}
+
+
+/* About styles */
+section#about-us {
+    padding: 4rem 0;
+}
+
+section#about-us .flex-item:first-of-type {
+    width: 30%;
+    color: var(--primary-color);
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+section#about-us .flex-item:nth-of-type(2) {
+    width: 70%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+section#about-us .flex-item.title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+section#about-us .flex-item.title h3 {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+}
+
+section#about-us .flex-item p {
+    color: var(--black-faded);
+    margin-bottom: 0.4rem;
+}
+
+
+/* Contact styles */
+section#contact {
+    background-color: var(--secondary-color);
+    margin-bottom: 0;
+}
+
+section#contact .container h3 {
+    color: var(--black-faded);
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+section#contact .container p {
+    color: var(--black-faded);
+    margin-bottom: 1rem;
+}
+
+section#contact .container .flex {
+    justify-content: space-between;
+    column-gap: 10%;
+}
+
+.contact-form {
+    width: 60%;
+    border-right: 1px solid var(--black-faded);
+    padding: 0 3rem 0 0;
+}
+
+.contact-details {
+    width: 30%;
+}
+
+.contact-form .btn {
+    color: var(--white-faded);
+}
+
+.contact-details {
+    align-self: center;
+}
+
+.contact-details h5 {
+    margin-bottom: 0.5rem;
+    color: var(--black-faded);
+    font-size: 1.5rem;
+}

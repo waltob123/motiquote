@@ -3,27 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/resets.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
+    <script src="{{ url_for('static', filename='javascripts/script.js') }}" defer></script>
+    {% block styles %}{% endblock %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/motiquote-color-svg.svg') }}" type="image/x-icon">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <header>
-        <h1>Motiquote-Pro</h1>
-        <ul>
-        {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-        {% else %}
-            <li><a href="{{ url_for('auth.register') }}">Sign up</a></li>
-            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-        {% endif %}
-        </ul>
+        <div class="container">
+            <div class="flex">
+                <!-- logo section -->
+                <section id="logo" class="flex-item">
+                    <h1 hidden>Motiquote-Pro</h1>
+                    <a href="{{ url_for('main.index') }}">
+                        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Motiquote-Pro">
+                    </a>
+                </section>
+
+                <!-- menu section -->
+                <section id="menu" class="flex-item">
+                    <nav>
+                        <ul class="menu-items">
+                            <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                            <li><a href="{{url_for('main.index') }}#about-us">About</a></li>
+                            <li><a href="{{url_for('main.index') }}#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </section>
+
+                {% if current_user.is_authenticated %}
+                    <!-- auth section -->
+                    <section id="auth" class="flex-item">
+                        <div class="profile">
+                            <p>kwasiasamoah18</p>
+                            <div class="dropdown">
+                                <ul>
+                                    <li>
+                                        <a href="">
+                                            View Profile
+                                        </a>
+                                        <a href="">
+                                            Edit Profile
+                                        </a>
+                                        <a href="">
+                                            Quotes
+                                        </a>
+                                        <a href="{{ url_for('auth.logout') }}">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                {% else %}
+                    <!-- auth section -->
+                    <section id="auth" class="flex-item">
+                        <ul class="menu-items">
+                            <li><a href="{{ url_for('auth.register') }}">Sign up</a></li>
+                            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                        </ul>
+                    </section>
+                {% endif %}
+            </div>
+        </div>
     </header>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <div>{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+    
+    <!-- main section of webpage -->
+    <main>
+        <!-- flash messages section -->
+        <section id="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}">
+                        {{ message }}
+                        <img src="{{ url_for('static', filename='images/icons/close-icon.png') }}" class="close-icon" alt="Close message">
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </section>    
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- footer of webpage -->
+    <footer>
+        <div class="container">
+            <div class="flex">
+                <section id="footer-logo" class="flex-item">
+                    <h4 hidden>Motiquote-Pro</h4>
+                    <a href="{{ url_for('main.index') }}">
+                        <img src="{{ url_for('static', filename='images/logo-white.svg') }}" alt="Motiquote-Pro">
+                    </a>
+                </section>
+                <section id="footer-menu" class="flex-item">
+                    <nav>
+                        <ul class="menu-items">
+                            <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                            <li><a href="{{url_for('main.index') }}#about-us">About</a></li>
+                            <li><a href="{{url_for('main.index') }}#contact">Contact</a></li>
+                            <li><a href="#api">API</a></li>
+                        </ul>
+                    </nav>
+                </section>
+
+                <section id="author" class="flex-item">
+                    <h4>Author</h4>
+                    <p>
+                        Desmond Asiedu Asamoah
+                        <span>
+                            <a href="https://www.github.com/walterob123">
+                                <img src="{{ url_for('static', filename='images/icons/github-icon.png') }}" alt="Github profile" width="25px">
+                            </a>
+                            <a href="">
+                                <img src="{{ url_for('static', filename='images/icons/linkedin-icon.png') }}" alt="LinkedIn profile" width="25px">
+                            </a>
+                            <a href="mailto:walterobrien_123@yahoo.com">
+                                <img src="{{ url_for('static', filename='images/icons/mail-icon.png') }}" alt="Send email" width="25px">
+                            </a>
+                        </span>
+                    </p>
+                </section>
+            </div>
+            <div>
+                <p>
+                    &copy; 2023 Motiquote-Pro. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

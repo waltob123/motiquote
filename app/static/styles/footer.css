@@ -1,0 +1,35 @@
+/* Footer styles */
+footer {
+    background-color: var(--black);
+    padding: 3rem 0;
+}
+
+footer .container .flex {
+    justify-content: space-between;
+    column-gap: 10%;
+}
+
+footer .container .flex-items {
+    width: 30%;
+}
+
+footer a, footer li, footer p, footer h1,
+footer h2, footer h3, footer h4, footer h5,
+footer h6, footer span {
+    color: var(--white-faded);
+}
+
+footer .menu-items li {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+footer section span a {
+    display: inline-block;
+    width: 25px;
+    margin: 0 0.5rem;
+}
+
+footer p:last-of-type {
+    text-align: end;
+}

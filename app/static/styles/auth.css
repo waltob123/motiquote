@@ -1,0 +1,52 @@
+/* Shared styles */
+.auth-form {
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid var(--white);
+    padding: 1rem 3rem;
+}
+
+section#register .flex-item:first-of-type,
+section#login .flex-item:first-of-type {
+    width: 30%;
+}
+
+section#register h3,
+section#login h3 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+
+section#register .flex-item p,
+section#login .flex-item p,
+section#login .flex-item p a,
+section#register .flex-item p a {
+    color: var(--white-faded);
+    margin-bottom: 0.5rem;
+}
+
+section#login .flex-item p a,
+section#register .flex-item p a {
+    text-decoration: underline;
+}
+
+section#register .form-field label,
+section#login .form-field label {
+    color: var(--white-faded);
+}
+
+section#register .flex, section#login .flex,
+section#register .flex-item, section#login .flex-item {
+    gap: 7rem;
+}
+
+section#register .flex-item:first-of-type
+section#login .flex-item:first-of-type {
+    align-self: center;
+}
+
+section#register, section#login {
+    padding: 4rem 0;
+    background-color: var(--black-faded);
+}
