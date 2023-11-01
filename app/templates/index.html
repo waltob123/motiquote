@@ -1,4 +1,83 @@
 {% extends 'base.html' %}
-{% block content %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+{% endblock %}
+
+{% block title %}Motiquote{% endblock %}
+
+{% block content %}
+<!-- hero section -->
+<section id="hero">
+    <div class="container flex">
+        <div class="hero-text">
+            <h2>Ready to inspire the World?</h2>
+            <p>Join our community of motivational speakers and start sharing your wisdom today!</p>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Sign up</a>
+        </div>
+    </div>
+</section>
+
+<!-- about us -->
+<section id="about-us">
+    <div class="container">
+        <div class="flex">
+            <div class="title flex-item">
+                <h3>About Us</h3>
+            </div>
+            <div class="flex-item">
+                <p>
+                    At Motiquote, our mission is to create a thriving community of motivational speakers, thought leaders, and seekers of wisdom. We believe that words have the power to transform lives, and we're here to provide a platform for speakers to share their profound insights and for users to find the motivation they need to conquer their goals and dreams.
+                </p>
+                <p>
+                    Our platform is a treasure trove of inspirational quotes from a diverse array of motivational speakers. Discover nuggets of wisdom that will fuel your determination and help you overcome obstacles.
+                </p>
+                <p>
+                    Whether you're a seasoned speaker or someone seeking guidance, [Your Website Name] empowers you to contribute your voice and wisdom to our ever-growing library of motivation.
+                </p>
+                <p>
+                    We are committed to fostering a positive, inclusive, and uplifting environment where everyone can realize their potential. Our team is dedicated to ensuring the highest quality content and user experience, so you can embark on your path to success with confidence and enthusiasm.
+                </p>
+                <p>
+                    Ready to embark on your motivational journey or share your words of inspiration? Join our vibrant community of motivators and seekers. Together, we can make a difference, one quote at a time.
+                </p>
+                <p>
+                    Welcome to Motiquote — We are fueling inspiration, one quote at a time!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- contact -->
+<section id="contact">
+    <div class="container">
+        <h3>Contact</h3>
+        <p>Have a question or comment? We'd love to hear from you!</p>
+        <div class="flex">
+            <div class="flex-item contact-form">
+                <form action="" method="post">
+                    <div class="form-field">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-input" name="name" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-input" name="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-field">
+                        <label for="message">Message</label>
+                        <textarea name="message" class="form-input" id="message" cols="30" rows="10" placeholder="Enter your message"></textarea>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+            </div>
+            <div class="flex-item contact-details">
+                <h5>Contact Information</h5>
+                <p>Email: abc@gmail.com</p>
+                <p>Phone: 555 555 5555</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

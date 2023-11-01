@@ -68,7 +68,7 @@ def request_token():
 
     if user.is_verified:
         s.close()
-        flash(message='Account already verified!', category='success')
+        flash(message='Account already verified!', category='info')
         return redirect(url_for('auth.login'))
 
     new_token = create_token(user)

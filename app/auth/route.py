@@ -64,13 +64,13 @@ def create_user():
 
     if not form_data.validate_on_submit():
         if form_data.errors.get('email_address'):
-            flash(form_data.errors.get('email_address')[0])
+            flash(message=form_data.errors.get('email_address')[0], category='error')
         if form_data.errors.get('username'):
-            flash(form_data.errors.get('username')[0])
+            flash(message=form_data.errors.get('username')[0], category='error')
         if form_data.errors.get('password'):
-            flash(form_data.errors.get('password')[0])
+            flash(message=form_data.errors.get('password')[0], category='error')
         if form_data.errors.get('confirm_password'):
-            flash(form_data.errors.get('confirm_password')[0])
+            flash(message=form_data.errors.get('confirm_password')[0], category='error')
         return redirect(url_for('auth.register'))
 
     s = session()  # create session
@@ -95,7 +95,7 @@ def create_user():
     token = create_token(user)
     send_verification_email(user.email_address, sender=app.config['MAIL_USERNAME'],
                             verification_link=f"{app.config['DOMAIN']}{url_for('verify.verify_email')}?token={token}")
-    flash('Account created successfully. Please check your email for verification link.')
+    flash(message='Account created successfully. Please check your email for verification link.', category='success')
     return redirect(url_for('auth.login'))
 
 
@@ -122,22 +122,23 @@ def authenticate_user():
 
     # check if user exists and if password matches
     if not user:
-        flash('Account does not exist!')
+        flash(message='Account does not exist!', category='error')
         return redirect(url_for('auth.login'))
 
     password_match = check_password(str(request_data['password']), user.password)
 
     if not password_match:
-        flash('Password provided is incorrect!')
+        flash(message='Password provided is incorrect!', category='error')
         return redirect(url_for('auth.login'))
 
     if not user.is_verified:
-        flash('Account is not verified. Please check your email for verification link.')
+        flash(message='Account is not verified. Please check your email for verification link.', category='info')
         return redirect(url_for('auth.login'))
 
     # login user
     login_user(user)
-    
+    flash(message='You have been logged in successfully.', category='success')
+
     return redirect(url_for('main.index'))
 
 
@@ -146,4 +147,5 @@ def authenticate_user():
 def logout():
     '''Logout user.'''
     logout_user()
+    flash(message='You have been logged out successfully.', category='info')
     return redirect(url_for('auth.login'))

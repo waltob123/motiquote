@@ -1,0 +1,37 @@
+/* Header styles */
+
+header {
+    background-color: var(--white);
+    padding: 1.5rem 0;
+}
+
+header .container .flex {
+    justify-content: space-between;
+    column-gap: 10%;
+}
+
+section#logo {
+    width: 10%;
+}
+
+section#menu, section#auth{
+    width: 30%;
+}
+
+section#logo a,
+section#footer-logo a {
+    width: 100px;
+    color: var(--primary-color);
+}
+
+section#menu, section#auth {
+    text-align: end;
+}
+
+section#menu a, section#auth a {
+    color: var(--black-faded);
+}
+
+section#auth a:hover {
+    text-decoration: underline;
+}
