@@ -83,8 +83,8 @@ def create_user():
         s.close()
         abort(500)
 
-    user = User(email_address=form_data['email_address'], username=form_data['username'],
-                password=form_data['password'], role_id=form_data['role_id'])
+    user = User(email_address=request_data['email_address'], username=request_data['username'],
+                password=request_data['password'], role_id=request_data['role_id'])
     s.add(user)
     try:
         s.commit()
@@ -130,7 +130,11 @@ def authenticate_user():
     if not password_match:
         flash('Password provided is incorrect!')
         return redirect(url_for('auth.login'))
-    
+
+    if not user.is_verified:
+        flash('Account is not verified. Please check your email for verification link.')
+        return redirect(url_for('auth.login'))
+
     # login user
     login_user(user)
     
