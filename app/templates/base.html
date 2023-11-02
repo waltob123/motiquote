@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
     <script src="{{ url_for('static', filename='javascripts/script.js') }}" defer></script>
     {% block styles %}{% endblock %}
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/motiquote-color-svg.svg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo-white.svg') }}" type="image/x-icon">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -99,7 +99,7 @@
                 <section id="footer-logo" class="flex-item">
                     <h4 hidden>Motiquote-Pro</h4>
                     <a href="{{ url_for('main.index') }}">
-                        <img src="{{ url_for('static', filename='images/logo-white.svg') }}" alt="Motiquote-Pro">
+                        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Motiquote-Pro">
                     </a>
                 </section>
                 <section id="footer-menu" class="flex-item">
@@ -118,10 +118,10 @@
                     <p>
                         Desmond Asiedu Asamoah
                         <span>
-                            <a href="https://www.github.com/walterob123">
+                            <a href="https://www.github.com/waltob123" target="_blank">
                                 <img src="{{ url_for('static', filename='images/icons/github-icon.png') }}" alt="Github profile" width="25px">
                             </a>
-                            <a href="">
+                            <a href="" target="_blank">
                                 <img src="{{ url_for('static', filename='images/icons/linkedin-icon.png') }}" alt="LinkedIn profile" width="25px">
                             </a>
                             <a href="mailto:walterobrien_123@yahoo.com">

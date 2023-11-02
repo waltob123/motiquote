@@ -3,7 +3,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/auth.css') }}">
 {% endblock %}
-{% block title %}Register{% endblock %}
+{% block title %}Motiquote | Register{% endblock %}
 
 {% block content %}
     <section id="register">
@@ -11,7 +11,10 @@
             <div class="flex">
                 <div class="flex-item">
                     <div>
-                        <h3>Register</h3>
+                        <h3>Register and Share Your Inspiration</h3>
+                        <p>
+                            Ready to inspire and be inspired? Sign up now and start posting your motivational quotes today!
+                        </p>
                         <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
                     </div>
                 </div>

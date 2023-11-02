@@ -4,10 +4,15 @@
     --primary-color: #0d62d1;
     --secondary-color: #ececec;
     --white-faded: #ffffffe1;
-    --error: #e92d2de8;
-    --success: #2de92de8;
-    --warning: #e9e22de8;
-    --info: #2dcee9e8;
+    --white-transparent: #ffffff7c;
+    --error: #f27676de;
+    --error-text: #bb1313;
+    --success: #a1e0a1e7;
+    --success-text: rgb(63, 148, 63);
+    --warning: #f2ed68e8;
+    --warning-text: #f2ed68;
+    --info: #66ccdedc;
+    --info-text: #1a7a8c;
     --black: #000000;
     --black-faded: #000000b9;
     --white: #ffffff;
@@ -109,6 +114,10 @@ form {
     width: 100%;
 }
 
+textarea {
+    resize: none;
+}
+
 .form-field {
     margin-bottom: 1rem;
 }
@@ -168,26 +177,29 @@ section#flash-messages {
 .error, .success, .info, .warning {
     padding: 0.5rem;
     margin-bottom: 1rem;
-    color: var(--black-faded);
     border-radius: 5px;
     font-family: 'Open Sans', sans-serif;
     position: relative;
 }
 
 .error {
-    background-color: var(--error)
+    background-color: var(--error);
+    color: var(--error-text);
 }
 
 .success {
     background-color: var(--success);
+    color: var(--success-text);
 }
 
 .warning {
     background-color: var(--warning);
+    color: var(--warning-text);
 }
 
 .info {
     background-color: var(--info);
+    color: var(--info-text);
 }
 
 
