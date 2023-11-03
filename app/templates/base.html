@@ -39,7 +39,7 @@
                     <!-- auth section -->
                     <section id="auth" class="flex-item">
                         <div class="profile">
-                            <p>kwasiasamoah18</p>
+                            <p>{{ current_user.username }}</p>
                             <div class="dropdown">
                                 <ul>
                                     <li>
@@ -49,7 +49,7 @@
                                         <a href="">
                                             Edit Profile
                                         </a>
-                                        <a href="">
+                                        <a href="{{ url_for('quotes.get_quotes') }}">
                                             Quotes
                                         </a>
                                         <a href="{{ url_for('auth.logout') }}">
@@ -81,10 +81,12 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
+                <div class="container">
                     <div class="{{ category }}">
                         {{ message }}
                         <img src="{{ url_for('static', filename='images/icons/close-icon.png') }}" class="close-icon" alt="Close message">
                     </div>
+                </div>
                 {% endfor %}
             {% endif %}
             {% endwith %}

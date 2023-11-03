@@ -1,0 +1,124 @@
+/* Quotes styles */
+section#quotes {
+    height: 100vh;
+    padding: 3rem 0;
+    background-color: var(--white-faded);
+}
+
+section#quotes .container {
+    position: relative;
+}
+
+#add-quote-btn {
+    justify-content: flex-end;
+}
+
+
+/* no quotes styles */
+div.no-quotes {
+    margin-top: 3rem;
+}
+
+div.no-quotes h3,
+div.no-quotes p {
+    text-align: center;
+    color: var(--black-faded);
+    margin-bottom: 1rem;
+}
+
+div.no-quotes h3 {
+    font-size: 2rem;
+}
+
+/* quotes section */
+div.quotes {
+    padding: 3rem 0;
+}
+div.quotes .heading,
+div.quotes h3 {
+    margin-bottom: 2rem;
+}
+
+div.quotes h3 {
+    font-size: 2rem;
+    color: var(--black-faded);
+}
+
+div.quotes .heading {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 0.5rem 0.3rem;
+}
+
+div.quotes .heading h4 {
+    color: var(--black-faded);
+    text-align: left;
+}
+
+div.quote {
+    padding: 0.5rem 0.3rem;
+}
+
+div.quote button,
+div.quote a {
+    padding: 0.3rem 0.5;
+}
+
+div.quote:nth-child(even) {
+    background-color: var(--secondary-color);
+}
+
+.user-quote {
+    width: 50%;
+    align-self: center;
+}
+
+.author, .actions {
+    width: 25%;
+    align-self: center;
+}
+
+div.actions.flex {
+    gap: 0.3rem;
+}
+
+
+/* create quote styles */
+div#create-quote,
+div#view-quote {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--white-faded);
+    padding: 3rem;
+    z-index: 30;
+}
+
+div#create-quote.open,
+div#view-quote.open {
+    display: block;
+}
+
+div#create-quote .flex,
+div#view-quote .flex {
+    height: 100%;
+    padding: 2rem;
+    align-content: center;
+    position: relative;
+}
+
+div#create-quote form h3,
+div#view-quote form h3 {
+    font-size: 1.5rem;
+}
+
+div#create-quote form h3,
+div#create-quote form p,
+div#view-quote form h3,
+div#view-quote form p {
+    color: var(--black-faded);
+    margin-bottom: 1rem;
+}

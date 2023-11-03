@@ -139,7 +139,7 @@ def authenticate_user():
     login_user(user)
     flash(message='You have been logged in successfully.', category='success')
 
-    return redirect(url_for('main.index'))
+    return redirect(url_for('quotes.get_quotes'))
 
 
 @auth.route('/logout', methods=['GET'], strict_slashes=True)
