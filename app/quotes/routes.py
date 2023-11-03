@@ -57,14 +57,15 @@ def get_quote(id):
             'id': quote.id,
             'quote': quote.quote,
             'author': quote.author,
-            'category_id': quote.category.id
+            'category_id': quote.category.id,
+            'quote_url': url_for('quotes.update_quote', id=quote.id),
         })
 
     flash(message='The quote does not exist!', category='error')
     return redirect(url_for('quotes.get_quotes'))
 
 
-@quotes.route('', methods=['POST'], strict_slashes=True)
+@quotes.route('/add', methods=['POST'], strict_slashes=True)
 @login_required
 def create_quote():
     '''

@@ -66,7 +66,7 @@ async function viewEditQuote(btn) {
         });
 
         // set edit quote form action to the quote id
-        editQuoteForm.action = window.location.href + '/' + quote.id;
+        editQuoteForm.action = quote.quote_url;
 
         categoryEditInput.disabled = true;  // disable the category input
     }
