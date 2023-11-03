@@ -1,8 +1,8 @@
 /* Header styles */
 
 header {
-    background-color: var(--white);
-    padding: 1.5rem 0;
+    background-color: var(--secondary-color);
+    padding: 1rem 0;
 }
 
 header .container .flex {
@@ -20,7 +20,7 @@ section#menu, section#auth{
 
 section#logo a,
 section#footer-logo a {
-    width: 100px;
+    width: 50px;
     color: var(--primary-color);
 }
 
@@ -28,7 +28,7 @@ section#menu, section#auth {
     text-align: end;
 }
 
-section#menu a, section#auth a {
+section#menu a, section#auth .menu-items a {
     color: var(--black-faded);
 }
 

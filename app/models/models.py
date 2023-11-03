@@ -93,14 +93,18 @@ class Quote(Base, BaseModel):
 
     quote = Column(String(255), nullable=False, unique=True)
     author = Column(String(255), nullable=False)
+    approved = Column(Boolean, nullable=False, default=False)
     user_id = Column(String(255), ForeignKey('users.id'), nullable=False)
+    category_id = Column(String(255), ForeignKey('categories.id'), nullable=False)
     user = relationship('User', backref='quotes', lazy=True)
+    category = relationship('Category', backref='quotes', lazy=True)
 
-    def __init__(self, quote, author, user_id):
+    def __init__(self, category_id, quote, author, user_id):
         '''Initialize quote.'''
         self.quote = quote
         self.author = author
         self.user_id = user_id
+        self.category_id = category_id
 
     def __str__(self):
         '''String representation of quote.'''
@@ -109,3 +113,20 @@ class Quote(Base, BaseModel):
     def __repr__(self):
         '''String representation of quote.'''
         return f'Quote("{self.author}", "{self.quote}", {self.user_id})'
+
+
+class Category(Base, BaseModel):
+    '''Model for categories.'''
+    __tablename__ = 'categories'
+
+    category = Column(String(255), nullable=False, unique=True, default='General')
+
+    def __init__(self, category):
+        '''Initialize category.'''
+        self.category = category
+
+    def __str__(self):
+        return f'<Category {self.id} {self.category}>'
+
+    def __repr__(self):
+        return f'Category("{self.category}")'

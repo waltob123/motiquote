@@ -1,0 +1,125 @@
+{% extends './base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/quotes.css') }}">
+{% endblock %}
+
+{% block title %}Motiquote | Your Quotes{% endblock %}
+
+{% block content %}
+    <section id="quotes">
+        <div class="container">
+            <div class="flex" id="add-quote-btn">
+                <button class="btn btn-primary">Add Quote</button>
+            </div>
+            {% if quotes %}
+                <div class="quotes">
+                    <h3>Your Quotes</h3>
+                    <div class="heading flex">
+                        <div class="flex-item user-quote">
+                            <h4>Quote</h4>
+                        </div>
+                        <div class="flex-item author">
+                            <h4>Author</h4>
+                        </div>
+                        <div class="flex-item actions">
+                            <h4>Actions</h4>
+                        </div>
+                    </div>
+                    {% for quote in quotes %}
+                        <div class="quote">
+                            <div class="flex">
+                                <p class="flex-item user-quote">
+                                    {{ quote.quote }}
+                                </p>
+                                <p class="flex-item author">
+                                    {{ quote.author }}
+                                </p>
+                                <div class="flex actions">
+                                    <button class="btn btn-info" id="view-quote-btn" data-quoteid="{{ quote.id }}">View</button>
+                                    <a href="{{ url_for('quotes.delete_quote', id=quote.id) }}" class="btn btn-error">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-quotes">
+                    <h3>
+                        Your Motivation Journey Begins Here
+                    </h3>
+                    <p>
+                        It's a fresh canvas waiting for your inspiration. Your journey to inspire others and share your wisdom starts now. Begin by adding your first motivational quote and watch as it spreads positivity across our community.
+                    </p>
+                    <p>
+                        Ready to make a difference? Click the "Add Quote" button and let your voice be heard.
+                    </p>
+                </div>
+            {% endif %}
+
+            <!-- create quote -->
+            <div id="create-quote">
+                <div class="flex">    
+                    <form action="{{ url_for('quotes.create_quote') }}" method="post">
+                        {{ form.csrf_token }}
+                        <h3>
+                            Add a new quote
+                        </h3>
+                        <p>
+                            Share Your Wisdom and Inspire Others
+                        </p>
+                        <div class="form-field">
+                            {{ form.quote.label }}
+                            {{ form.quote(class_="form-input", placeholder="Ex. The roots of education are bitter but its fruits are sweet.") }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.author.label }}
+                            {{ form.author(class_="form-input", placeholder="Ex. John Doe") }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.category_id.label }}
+                            {{ form.category_id(class_="form-input", placeholder="Enter quote") }}
+                        </div>
+                        {{ form.submit(class_="btn btn-primary") }}
+                    </form>
+                    <img src="{{ url_for('static', filename='images/icons/close-icon.png') }}" class="close-icon" alt="Close message">
+                </div>
+            </div>
+
+            <!-- view quote -->
+            <!-- 
+                View and edit quote are in the same div.
+                When the user clicks on the view button, javascript fetches the quote data and populates the form.
+                With all inputs pre-populated and disabled.
+                When the user clicks on the edit button, javascript enables the inputs, disables the edit button and enables the post button.
+                When the user clicks on the post quote button, javascript submits the form.
+                NB: The form action is set the window.location.href which is the current url in javascript.
+             -->
+            <div id="view-quote">
+                <div class="flex">    
+                    <form action="" method="post">
+                        {{ form.csrf_token }}
+                        <h3>
+                            Edit quote
+                        </h3>
+                        <div class="form-field">
+                            {{ form.quote.label }}
+                            {{ form.quote(class_="form-input", id="edit-quote-input", placeholder="Ex. The roots of education are bitter but its fruits are sweet.") }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.author.label }}
+                            {{ form.author(class_="form-input", id="edit-author-input", placeholder="Ex. John Doe") }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.category_id.label }}
+                            {{ form.category_id(class_="form-input", id="edit-category-input", placeholder="Enter quote") }}
+                        </div>
+                        <button class="btn btn-secondary edit-btn" type="button">Edit</button>
+                        {{ form.submit(class_="btn btn-primary post-btn") }}
+                    </form>
+                    <img src="{{ url_for('static', filename='images/icons/close-icon.png') }}", class="close-icon" alt="Close message">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
