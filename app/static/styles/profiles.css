@@ -1,0 +1,22 @@
+/* Profiles styles */
+section#profiles {
+    margin: 7rem 0;
+    color: var(--black-faded);
+}
+
+section#profiles form .flex {
+    width: 100%;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+section#profiles h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+div#edit-profile {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: flex-end;
+}

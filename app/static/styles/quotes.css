@@ -48,7 +48,8 @@ div.quotes .heading {
     display: flex;
     align-items: center;
     background-color: var(--secondary-color);
-    padding: 0.5rem 0.3rem;
+    padding: 0.5rem;
+    border-radius: 5px;
 }
 
 div.quotes .heading h4 {
@@ -57,7 +58,18 @@ div.quotes .heading h4 {
 }
 
 div.quote {
-    padding: 0.5rem 0.3rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+div.quote:hover {
+    background-color: var(--secondary-color);
+}
+
+div.quote p {
+    color: var(--black-faded);
+    margin-bottom: 0.5rem;
 }
 
 div.quote button,

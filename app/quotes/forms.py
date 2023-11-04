@@ -21,4 +21,4 @@ class QuoteForm(FlaskForm):
     quote = StringField('Quote', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
     category_id = SelectField('Category', validators=[DataRequired()], choices=[(cat.id, cat.category) for cat in s.query(Category).all()])
-    submit = SubmitField('Post Quote')
+    submit = SubmitField('Submit')

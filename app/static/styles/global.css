@@ -67,13 +67,15 @@ a {
 
 input {
     display: block; 
+    padding: 0.5rem;
+    box-sizing: border-box;
 }
 
 .btn[disabled] {
     opacity: 0.5;
 }
 
-.disabled:hover {
+*[disabled]:hover {
     cursor: not-allowed;
 }
 
@@ -144,6 +146,7 @@ textarea {
 
 .form-field {
     margin-bottom: 1rem;
+    width: 100%;
 }
 
 .form-field label {
@@ -152,19 +155,11 @@ textarea {
 }
 
 .form-input {
+    display: block;
     width: 100%;
     padding: 0.5rem;
     border: 1px solid var(--black-faded);
     border-radius: 5px;
-    border-radius: 0;
-}
-
-.form-input-mid {
-    width: 50%;
-}
-
-.form-input-small {
-    width: 30%;
 }
 
 .form-input:focus {
@@ -174,10 +169,6 @@ textarea {
 
 .form-input:focus::placeholder {
     color: transparent;
-}
-
-.form-input::placeholder {
-    color: var(--black-faded);
 }
 
 
@@ -196,6 +187,7 @@ textarea {
 section#flash-messages {
     width: 100%;
     padding: 0 1rem;
+    margin-top: 0.5rem;
 }
 
 .error, .success, .info, .warning {
