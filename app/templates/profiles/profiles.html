@@ -1,0 +1,77 @@
+{% extends './base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profiles.css') }}">
+{% endblock %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <section id="profiles">
+        <div class="container">
+            <div id="edit-profile">
+                <button class="btn btn-primary" type="button" id="edit-profile-btn">Edit Profile</button>
+            </div>
+            {% if profile %}
+                <h3>My Profile</h3>
+                <div class="flex">
+                    <form id="edit-profile-form" action="{{ url_for('profiles.update_profile', user_id=current_user.id, profile_id=profile.id) }}" method="post">
+                        {{ form.csrf_token }}
+                        <div class="form-field">
+                            {{ form.first_name.label }}
+                            {{ form.first_name(class_="form-input", placeholder="John", value=profile.first_name, disabled=True) }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.last_name.label }}
+                            {{ form.last_name(class_="form-input", placeholder="Einstein", value=profile.last_name, disabled=True) }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.telephone.label }}
+                            {{ form.telephone(class_="form-input", placeholder="555 555 5555", value=profile.telephone, disabled=True) }}
+                        </div>
+                        <div class="flex">
+                            <div class="form-field">
+                                {{ form.gender_id.label }}
+                                {{ form.gender_id(class_="form-input gender-id", gender_id=profile.gender_id, disabled=True) }}
+                            </div>
+                            <div class="form-field">
+                                {{ form.country_id.label }}
+                                {{ form.country_id(class_="form-input country-id", country_id=profile.country_id, disabled=True) }}
+                            </div>
+                        </div>
+                        {{ form.submit(class_="btn btn-primary", disabled=True) }}
+                    </form>
+                </div>
+            {% else %}
+                <div class="flex">
+                    <form action="{{ url_for('profiles.create_profile') }}" method="post">
+                        {{ form.csrf_token }}
+                        <div class="form-field">
+                            {{ form.first_name.label }}
+                            {{ form.first_name(class_="form-input", placeholder="John") }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.last_name.label }}
+                            {{ form.last_name(class_="form-input", placeholder="Einstein") }}
+                        </div>
+                        <div class="form-field">
+                            {{ form.telephone.label }}
+                            {{ form.telephone(class_="form-input", placeholder="555 555 5555") }}
+                        </div>
+                        <div class="flex">
+                            <div class="form-field">
+                                {{ form.gender_id.label }}
+                                {{ form.gender_id(class_="form-input") }}
+                            </div>
+                            <div class="form-field">
+                                {{ form.country_id.label }}
+                                {{ form.country_id(class_="form-input") }}
+                            </div>
+                        </div>
+                        {{ form.submit(class_="btn btn-primary") }}
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
