@@ -36,6 +36,7 @@ from .auth.routes import auth
 from .auth.verify import verify
 from .quotes.routes import quotes
 from .profile.routes import profiles
+from .api.v1.routes import api
 
 # Register all blueprints
 app.register_blueprint(main)
@@ -43,3 +44,4 @@ app.register_blueprint(auth)
 app.register_blueprint(verify)
 app.register_blueprint(quotes)
 app.register_blueprint(profiles)
+app.register_blueprint(api)
