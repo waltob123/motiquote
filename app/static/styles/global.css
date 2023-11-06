@@ -187,7 +187,6 @@ textarea {
 section#flash-messages {
     width: 100%;
     padding: 0 1rem;
-    margin-top: 0.5rem;
 }
 
 .error, .success, .info, .warning {
@@ -218,6 +217,12 @@ section#flash-messages {
     color: var(--info-text);
 }
 
+.auth-form .error,
+.auth-form .success,
+.auth-form .info,
+.auth-form .warning {
+    background-color: transparent;
+}
 
 /* profile styles */
 div.profile {
