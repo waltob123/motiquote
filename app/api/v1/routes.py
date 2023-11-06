@@ -1,14 +1,9 @@
-from flask import abort, Blueprint, jsonify, url_for
+from flask import abort, Blueprint, jsonify, request, url_for
 from app import app
 from app.models.models import Quote
 from app.database.db import session
 
 api = Blueprint('api', __name__, url_prefix='/api/v1')
-
-
-@api.app_errorhandler(404)
-def not_found(error):
-    return jsonify({f'error': 'Quote not found'}), 404
 
 
 @api.route('quotes/<string:quote_id>', methods=['GET'], strict_slashes=True)
@@ -28,7 +23,7 @@ def get_quote(quote_id):
     s = session()
     quote = s.query(Quote).filter_by(id=quote_id, approved=True).first()
     if not quote:
-        abort(404)
+        abort(404, f'Quote with ID {quote_id} not found')
     
     result = {
         'quote': quote.quote,
@@ -38,7 +33,7 @@ def get_quote(quote_id):
         'quote_url': url_for('api.get_quote', quote_id=quote.id, _external=True)
     }
     
-    return jsonify(result)
+    return jsonify(result), 200
 
 
 @api.route('quotes', methods=['GET'], strict_slashes=True)
@@ -60,7 +55,7 @@ def get_quotes():
             'created_at': quote.created_at,
             'quote_url': url_for('api.get_quote', quote_id=quote.id, _external=True)
         })
-    return jsonify(result)
+    return jsonify(result), 200
 
 
 @api.route('quotes/search', methods=['GET'], strict_slashes=True)
@@ -71,3 +66,24 @@ def search_quotes():
     Returns:
         A JSON representation of all quotes matching the search term.
     '''
+
+    request_args = request.args.to_dict()  # get request args as a dict
+
+    # check if search term is present
+    if 'author' not in request_args:
+        abort(400, 'Missing search term')
+
+    s = session()  # create a session
+
+    # search for quotes by author
+    quotes = s.query(Quote).filter_by(author=request_args.get('author')).filter_by(approved=True).all()
+
+    # convert quotes to a list of dicts
+    results = [{
+        'quote': quote.quote,
+        'category': quote.category.category,
+        'author': quote.author,
+        'created_at': quote.created_at,
+        'quote_url': url_for('api.get_quote', quote_id=quote.id, _external=True)} for quote in quotes]
+
+    return jsonify(results), 200
