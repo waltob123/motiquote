@@ -34,3 +34,17 @@ class RegisterForm(BaseForm, FlaskForm):
 class LoginForm(BaseForm, FlaskForm):
     '''Form for logging in a user.'''
     submit = SubmitField('Login')
+
+
+class ForgotPasswordForm(FlaskForm):
+    '''Form for resetting password.'''
+    email_address = StringField('Email Address', validators=[
+                                DataRequired(), Email()])
+    submit = SubmitField('Submit')
+
+
+class ResetPasswordForm(BaseForm, FlaskForm):
+    '''Form for resetting password.'''
+    confirm_password = PasswordField('Confirm Password', validators=[
+                                     DataRequired(), EqualTo('password', message='Passwords must match')])
+    submit = SubmitField('Submit')

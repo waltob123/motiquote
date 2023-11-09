@@ -1,6 +1,10 @@
 import re
 import bcrypt
+from app import app
 from email_validator import validate_email, EmailNotValidError
+from flask_mail import Message
+from app import mail
+from flask import render_template, url_for
 
 
 def hash_password(password: str) -> bytes:
@@ -11,6 +15,17 @@ def hash_password(password: str) -> bytes:
 def check_password(password: str, hashed_password: bytes) -> bool:
     '''Checks if password matches hashed password.'''
     return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+
+def send_password_reset_email(email: str, sender: str, template: str, username: str, token: str):
+    message = Message(
+        'Reset Account Password',
+        recipients=[email],
+        sender=sender
+    )
+
+    message.html = render_template(template, domain=app.config['DOMAIN'], username=username, url=url_for('auth.reset_password'), token=token)
+    mail.send(message)
 
 
 class ValidateCredentials:

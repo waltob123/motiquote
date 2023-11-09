@@ -1,18 +1,42 @@
 {% extends './base.html' %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/verification.css') }}">
+{% endblock %}
+
 {% block content %}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                {% if category == 'error' %}
-                    <div>
-                        {{ message }}
-                        {% if domain %}
-                            <a href="{{ domain }}{{ url_for('verify.request_token') }}?token={{ token }}">Request new token</a>
-                        {% endif %}                       
-                    </div>
+    <section id="verification">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'error' %}
+                            <div>
+                                <h3>{{ message }}</h3>
+                                {% if token %}
+                                <div>
+                                    <p>
+                                        Your verification token has expired. Please request for a new one.
+                                    </p>
+                                    {% if reset %}
+                                        <a href="{{ url_for('verify.reset_request_token') }}?token={{ token }}">Request for a new reset link</a>
+                                    {% else %}
+                                        <a href="{{ url_for('verify.request_token') }}?token={{ token }}" class="btn btn-primary">Request for new token</a>
+                                    {% endif %}
+                                </div>
+                                {% else %}
+                                    <div>
+                                        <p>
+                                            Please check your email for the correct verification link.
+                                            If you copied the link from the email, please ensure that you copied the entire link.
+                                        </p>
+                                    </div>
+                                {% endif %}                       
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+            {% endwith %}
+        </div>
+    </section>
 {% endblock %}

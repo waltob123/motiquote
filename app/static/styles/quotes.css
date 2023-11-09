@@ -1,11 +1,12 @@
 /* Quotes styles */
 section#quotes {
     height: 100vh;
-    padding: 3rem 0;
+    padding: 1.5rem 0;
     background-color: var(--white-faded);
+    box-sizing: border-box;
 }
 
-section#quotes .container {
+section#quotes .container-md {
     position: relative;
 }
 
@@ -61,6 +62,7 @@ div.quote {
     padding: 0.5rem;
     border-radius: 5px;
     margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
 div.quote:hover {
@@ -74,7 +76,7 @@ div.quote p {
 
 div.quote button,
 div.quote a {
-    padding: 0.3rem 0.5;
+    padding: 0.3rem 1rem;
 }
 
 div.quote:nth-child(even) {
@@ -101,12 +103,13 @@ div#create-quote,
 div#view-quote {
     display: none;
     position: absolute;
-    width: 100%;
+    width: 70%;
     top: 0;
-    left: 0;
+    left: 30%;
     background-color: var(--white-faded);
-    padding: 3rem;
+    padding: 0.5rem;
     z-index: 30;
+    transform: translateX(-30%);
 }
 
 div#create-quote.open,

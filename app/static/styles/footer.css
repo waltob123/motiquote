@@ -1,7 +1,9 @@
 /* Footer styles */
 footer {
     background-color: var(--black-faded);
-    padding: 3rem 0;
+    padding: 1rem 0;
+    width: 100%;
+    margin-top: auto;
 }
 
 footer .container .flex {
@@ -19,11 +21,6 @@ footer h6, footer span {
     color: var(--white-faded);
 }
 
-footer .menu-items li {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
 footer section span a {
     display: inline-block;
     width: 25px;
@@ -31,5 +28,5 @@ footer section span a {
 }
 
 footer p:last-of-type {
-    text-align: end;
+    text-align: center;
 }
