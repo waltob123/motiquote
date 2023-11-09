@@ -8,12 +8,12 @@
 
 {% block content %}
     <section id="profiles">
-        <div class="container">
-            <div id="edit-profile">
-                <button class="btn btn-primary" type="button" id="edit-profile-btn">Edit Profile</button>
-            </div>
+        <div class="container-md">
+            <h3>My Profile</h3>            
             {% if profile %}
-                <h3>My Profile</h3>
+                <div id="edit-profile">
+                    <button class="btn btn-primary" type="button" id="edit-profile-btn">Edit Profile</button>
+                </div>
                 <div class="flex">
                     <form id="edit-profile-form" action="{{ url_for('profiles.update_profile', user_id=current_user.id, profile_id=profile.id) }}" method="post">
                         {{ form.csrf_token }}
@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-field">
                             {{ form.telephone.label }}
-                            {{ form.telephone(class_="form-input", placeholder="555 555 5555", value=profile.telephone, disabled=True) }}
+                            {{ form.telephone(class_="form-input", placeholder="E.g 0244444444", value=profile.telephone, disabled=True) }}
                         </div>
                         <div class="flex">
                             <div class="form-field">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="form-field">
                             {{ form.telephone.label }}
-                            {{ form.telephone(class_="form-input", placeholder="555 555 5555") }}
+                            {{ form.telephone(class_="form-input", placeholder="E.g 0244444444") }}
                         </div>
                         <div class="flex">
                             <div class="form-field">

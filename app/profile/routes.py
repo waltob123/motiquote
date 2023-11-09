@@ -63,7 +63,7 @@ def create_profile():
         flash(message='Profile created successfully!', category='success')
     except Exception as e:
         s.rollback()
-        flash(message='User profile exists already!', category='danger')
+        flash(message='User profile exists already!', category='error')
 
     s.close()  # close database session
     return redirect(url_for('profiles.get_profile', user_id=current_user.id))
@@ -100,7 +100,7 @@ def update_profile(user_id, profile_id):
             flash(message='Profile updated successfully!', category='success')
         except Exception as e:
             s.rollback()
-            flash(message='User profile exists already!', category='danger')
+            flash(message='User profile exists already!', category='error')
     else:
-        flash(message='Profile does not exist!', category='danger')
+        flash(message='Profile does not exist!', category='error')
     return redirect(url_for('profiles.get_profile', user_id=current_user.id))

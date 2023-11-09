@@ -1,5 +1,6 @@
 /* Profiles styles */
 section#profiles {
+    width: 100%;
     margin: 7rem 0;
     color: var(--black-faded);
 }
@@ -16,6 +17,7 @@ section#profiles h3 {
 }
 
 div#edit-profile {
+    width: 100%;
     display: flex;
     margin-bottom: 1rem;
     justify-content: flex-end;

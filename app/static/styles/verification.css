@@ -1,0 +1,23 @@
+/* verification styles */
+section#verification {
+    margin: 4rem 0;
+}
+
+section#verification h3,
+section#verification p {
+    color: var(--black-faded);
+    margin-bottom: 1rem;
+
+}
+
+section#verification h3 {
+    font-size: 1.5rem;
+}
+
+section#verification p {
+    font-size: 1.1rem;
+}
+
+section#verification a {
+    display: inline-block;
+}

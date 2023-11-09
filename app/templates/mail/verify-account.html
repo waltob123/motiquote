@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account</title>
+</head>
+<body>
+    <p>Dear {{ username }},</p>
+    <p>Thank you for creating an account with Motiquote. To verify your account, please click on the link below:</p>
+    {{ domain }}{{ url }}?token={{ token }}
+    <p>If you did not create an account with Motiquote, please ignore this email.</p>
+    <p>Thank you,</p>
+    <p>The Motiquote Team</p>
+</body>
+</html>

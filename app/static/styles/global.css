@@ -34,6 +34,10 @@ html {
 
 body {
     position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 a:hover, button:hover, .btn:hover {
@@ -51,6 +55,7 @@ p, a, li, span, input, textarea, button, label {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     line-height: 1.3;
+    color: var(--black-faded);
 }
 
 img {
@@ -83,6 +88,11 @@ input {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 15px;
+}
+
+.container-md {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .flex {
@@ -266,4 +276,8 @@ body.open::after {
     background-color: var(--black-faded);
     z-index: 20;
     display: block;
+}
+
+body.open {
+    overflow: hidden;
 }
